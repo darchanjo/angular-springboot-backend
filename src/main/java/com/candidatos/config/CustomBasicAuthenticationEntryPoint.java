@@ -10,6 +10,7 @@ import com.candidatos.model.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
  
@@ -29,7 +30,7 @@ public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
         response.setCharacterEncoding("UTF-8");
 
         ObjectMapper mapper = new ObjectMapper();         
-        String error = mapper.writeValueAsString(new ApiResponse<>(401, exception.getMessage(), null)); 
+        String error = mapper.writeValueAsString(new ApiResponse<>(HttpStatus.UNAUTHORIZED, exception.getMessage(), null)); 
         
         PrintWriter writer = response.getWriter();        
         writer.println(error);

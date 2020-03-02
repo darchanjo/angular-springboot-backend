@@ -2,6 +2,7 @@ package com.candidatos.controller;
 
 import com.candidatos.model.ApiResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class AuthenticationController {
         @io.swagger.annotations.ApiResponse(code = 401, message = "Credencial de acesso inválida")
     })
     public ApiResponse<Void> authenticate() throws AuthenticationException {
-        return new ApiResponse<Void>(200, "Usuário logado com sucesso", null);
+        return new ApiResponse<Void>(HttpStatus.OK, "Usuário logado com sucesso", null);
     }
 
 }

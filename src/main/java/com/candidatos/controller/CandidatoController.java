@@ -42,8 +42,9 @@ public class CandidatoController {
         @io.swagger.annotations.ApiResponse(code = 404, message = "O recurso solicitado não foi encontrado")
     })
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	//TODO implementar paginação
 	public ApiResponse<List<Candidato>> getAllCandidatos() {
-		return new ApiResponse<>(HttpStatus.OK.value(), "Lista de Candidatos carregada com sucesso", candidatoService.findAll());
+		return new ApiResponse<>(HttpStatus.OK, "Lista de Candidatos carregada com sucesso", candidatoService.findAll());
 	}
 
 	@ApiOperation(value = "Retorna o candidato correspondente ao identificador fornecido. Retorna 404 se o identificador não for encontrado no sistema.")
@@ -56,7 +57,7 @@ public class CandidatoController {
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiResponse<Candidato> getOne(
 		@ApiParam("Id do candidado a ser obtido. Não pode ser nulo.") @PathVariable(value = "id") Long id) {
-		return new ApiResponse<>(HttpStatus.OK.value(), "Candidato carregado com sucesso",candidatoService.findById(id));
+		return new ApiResponse<>(HttpStatus.OK, "Candidato carregado com sucesso",candidatoService.findById(id));
 	}
 
 	@ApiOperation(value = "Cadastra um novo candidato no sistema")
@@ -69,7 +70,7 @@ public class CandidatoController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiResponse<Candidato> createCandidato(
 		@ApiParam("Dados do candidato a ser cadastrado no sistema.") @RequestBody CandidatoDto candidato) {
-		return new ApiResponse<>(HttpStatus.CREATED.value(), "Candidato criado com sucesso", candidatoService.create(candidato));
+		return new ApiResponse<>(HttpStatus.CREATED, "Candidato criado com sucesso", candidatoService.create(candidato));
 	}
 
 	@ApiOperation(value = "Atualiza os dados do candidato")
@@ -82,8 +83,10 @@ public class CandidatoController {
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ApiResponse<Candidato> updateCandidato(
 		@ApiParam("Dados do candidato a ser atualizado no sistema.") @RequestBody CandidatoDto candidatoDto) {
-		return new ApiResponse<>(HttpStatus.OK.value(), "Candidato atualizado com sucesso",candidatoService.update(candidatoDto));
+		return new ApiResponse<>(HttpStatus.OK, "Candidato atualizado com sucesso", candidatoService.update(candidatoDto));
 	}
+
+	//TODO implementar method PATCH para atualização parcial dos dados de candidatos
 
 	@ApiOperation(value = "Exclui o registro do candidato do sistema")
 	@ApiResponses(value = {
@@ -96,6 +99,6 @@ public class CandidatoController {
 	public ApiResponse<Boolean> deleteCandidato(
 		@ApiParam("Id do candidado a ser excluido. Não pode ser nulo.") @PathVariable(value = "id") Long id) {
 		candidatoService.delete(id);
-		return new ApiResponse<>(HttpStatus.OK.value(), "Candidato deletado com sucesso", true);
+		return new ApiResponse<>(HttpStatus.OK, "Candidato deletado com sucesso", true);
 	}
 }

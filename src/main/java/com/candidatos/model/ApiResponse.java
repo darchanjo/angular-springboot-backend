@@ -1,5 +1,7 @@
 package com.candidatos.model;
 
+import org.springframework.http.HttpStatus;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.Setter;
 public class ApiResponse<T> {
 
     @ApiModelProperty(notes = "O código de status da solicitação HTTP.", example = "200", dataType = "java.lang.Integer", required = true, position = 0)
-    private int status;
+    private HttpStatus status;
 
     @ApiModelProperty(notes = "A mensagem indicativa da solicitação HTTP.", example = "200", dataType = "java.lang.Integer", required = true, position = 0)
     private String message;
